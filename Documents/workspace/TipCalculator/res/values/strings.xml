@@ -1,0 +1,10 @@
+<resources>
+
+    <string name="app_name">TipCalculator</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="menu_settings">Settings</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="title_activity_tip__splitting">Tip_Splitting</string>
+    <string name="title_activity_bill__entry__screen">BILL_ENTRY_SCREEN</string>
+
+</resources>
