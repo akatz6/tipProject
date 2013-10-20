@@ -50,10 +50,10 @@ public class BILL_ENTRY_SCREEN extends Activity {
 
 		table = (TableLayout) BILL_ENTRY_SCREEN.this.findViewById(R.id.table);
 
-		String numberOfGuest = main.howManyGuests();
-		tipTotal = main.tipTotalForBill();
+/*		String numberOfGuest = main.howManyGuests();
+		tipTotal = main.tipTotalForBill();*/
 		totalTip = Float.parseFloat(tipTotal);
-		numGuest = Float.parseFloat(numberOfGuest);
+/*		numGuest = Float.parseFloat(numberOfGuest);
 		float tipPerPersons = totalTip / numGuest;
 		numberOfGuests = Math.round(numGuest);
 		rows = new ArrayList<TextView>();
@@ -78,7 +78,7 @@ public class BILL_ENTRY_SCREEN extends Activity {
 				setSeekBar();
 			}
 
-		}
+		}*/
 
 		setSeekBar();
 		goToMainPage.setOnClickListener(new View.OnClickListener() {
