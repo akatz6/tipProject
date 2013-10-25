@@ -1,20 +1,29 @@
-<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
-    android:id="@+id/table"
-    android:layout_height="fill_parent" >
+    android:layout_height="fill_parent"
+    android:isScrollContainer="true"
+    android:overScrollMode="always"
+    android:scrollbarAlwaysDrawVerticalTrack="true"
+    android:scrollbarStyle="outsideInset"
+    android:scrollbars="vertical" >
 
-    <TableRow
-        android:id="@+id/tableRow1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" >
+    <TableLayout
+        android:id="@+id/table"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent" >
 
-        <Button
-            android:id="@+id/billEntry"
+        <TableRow
+            android:id="@+id/tableRow1"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:onClick="goToMainPage"
-            android:text="Bill Entry Screen" />
-    </TableRow>
+            android:layout_height="wrap_content" >
 
+            <Button
+                android:id="@+id/billEntry"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="goToMainPage"
+                android:text="Bill Entry Screen" />
+        </TableRow>
+    </TableLayout>
 
-</TableLayout>
+</ScrollView>

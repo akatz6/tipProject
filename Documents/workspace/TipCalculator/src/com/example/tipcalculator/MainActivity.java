@@ -17,8 +17,8 @@ import android.widget.RatingBar;
 import android.widget.RatingBar.OnRatingBarChangeListener;
 import android.widget.TextView;
 import android.widget.Toast;
-import com.example.tipcalculator.Tip_Splitting;
-import com.example.tipcalculator.BILL_ENTRY_SCREEN;
+import com.example.tipcalculator.AddTaxToTip;
+import com.example.tipcalculator.TipSplittingScreen;
 import com.example.tipcalculator.InBetweenUIAndBusinessLogic;
 
 public class MainActivity extends Activity {
@@ -39,25 +39,23 @@ public class MainActivity extends Activity {
 
 	private RatingBar ratingBar;
 	private double stars;
-	
+
 	private static double staticNumGuests;
 	private static double staticBillTotal;
 	private static double staticDeductions;
 	private static double staticTax;
 	private static double staticStars;
-	
-	InBetweenUIAndBusinessLogic inBetweenUIandBusinessLogic;
 
-	// BILL_ENTRY_SCREEN tipTailored;
-
-	static TextView tip;
-	static TextView tipRate;
-	static TextView perPersonTip;
-	static TextView entireBill;
+	private static TextView tip;
+	private static TextView tipRate;
+	private static TextView perPersonTip;
+	private static TextView entireBill;
 	// double defaultTip;
 	// float Rating;
-	Button tipTailoring;
-	Button configTipItems;
+	private Button tipTailoring;
+	private final String TOTALTIP = "Tip needs to be calcualted to go to this screen";
+	
+	private Button configTipItems;
 
 	// Tip_Splitting configTip;
 	// boolean subDeductions;
@@ -78,29 +76,31 @@ public class MainActivity extends Activity {
 			public void onTextChanged(CharSequence s, int start, int before,
 					int count) {
 				// TODO Auto-generated method stub
-				if (numberOfGuests.getText().hashCode() == s.hashCode() &&
-					!numberOfGuests.getText().toString().matches("")) {
-						numGuests = getTextFromEditText(numberOfGuests);
-						checkThatTextIsCorrect(Text.NUMGUESTS, numberOfGuests);
-				} else if (billTotal.getText().hashCode() == s.hashCode() &&
-					!billTotal.getText().toString().matches("")) {
-						totalBill = getTextFromEditText(billTotal);
-						checkThatTextIsCorrect(Text.BILL, billTotal);
-				} else if (billDeductions.getText().hashCode() == s.hashCode() &&
-					!billDeductions.getText().toString().matches("")) {
-						deductionsToBill = getTextFromEditText(billDeductions);
-						checkThatTextIsCorrect(Text.DEDUCTIONS, billDeductions);
-				} else if (tax.getText().hashCode() == s.hashCode() && 
-						!tax.getText().toString().matches("")) {
-							taxAmount = getTextFromEditText(tax);
-							checkThatTextIsCorrect(Text.TAX, tax);
+				if (numberOfGuests.getText().hashCode() == s.hashCode()
+						&& !numberOfGuests.getText().toString().matches("")) {
+					numGuests = getTextFromEditText(numberOfGuests);
+					checkThatTextIsCorrect(Text.NUMGUESTS, numberOfGuests);
+					
+				} else if (billTotal.getText().hashCode() == s.hashCode()
+						&& !billTotal.getText().toString().matches("")) {
+					totalBill = getTextFromEditText(billTotal);
+					checkThatTextIsCorrect(Text.BILL, billTotal);
+					
+				} else if (billDeductions.getText().hashCode() == s.hashCode()
+						&& !billDeductions.getText().toString().matches("")) {
+					deductionsToBill = getTextFromEditText(billDeductions);
+					checkThatTextIsCorrect(Text.DEDUCTIONS, billDeductions);
+					
+				} else if (tax.getText().hashCode() == s.hashCode()
+						&& !tax.getText().toString().matches("")) {
+					taxAmount = getTextFromEditText(tax);
+					checkThatTextIsCorrect(Text.TAX, tax);
 				}
 				doesHaveInformationForBusinessLogic();
 			}
 
 			@Override
 			public void afterTextChanged(Editable s) {
-
 
 			}
 
@@ -119,24 +119,26 @@ public class MainActivity extends Activity {
 	}
 
 	private void doesHaveInformationForBusinessLogic() {
-		if (!billTotal.getText().toString().matches("") &&
-				  !tax.getText().toString().matches("") &&
-				 !numberOfGuests.getText().toString().matches(""))
-		{
-			InBetweenUIAndBusinessLogic.getVariableFromMainActivity(staticNumGuests, Text.NUMGUESTS);
-			InBetweenUIAndBusinessLogic.getVariableFromMainActivity(staticTax, Text.TAX);
-			InBetweenUIAndBusinessLogic.getVariableFromMainActivity(staticBillTotal, Text.BILL);
-			InBetweenUIAndBusinessLogic.getVariableFromMainActivity(staticStars, Text.STARS);
-			if(!billDeductions.getText().toString().matches(""))
-			{
-				InBetweenUIAndBusinessLogic.getVariableFromMainActivity(staticDeductions, Text.DEDUCTIONS);
-			}
-			else
-			{
-				InBetweenUIAndBusinessLogic.getVariableFromMainActivity(0, Text.DEDUCTIONS);
+		if (!billTotal.getText().toString().matches("")
+				&& !tax.getText().toString().matches("")
+				&& !numberOfGuests.getText().toString().matches("")) {
+			InBetweenUIAndBusinessLogic.getVariableFromMainActivity(
+					staticNumGuests, Text.NUMGUESTS);
+			InBetweenUIAndBusinessLogic.getVariableFromMainActivity(staticTax,
+					Text.TAX);
+			InBetweenUIAndBusinessLogic.getVariableFromMainActivity(
+					staticBillTotal, Text.BILL);
+			InBetweenUIAndBusinessLogic.getVariableFromMainActivity(
+					staticStars, Text.STARS);
+			if (!billDeductions.getText().toString().matches("")) {
+				InBetweenUIAndBusinessLogic.getVariableFromMainActivity(
+						staticDeductions, Text.DEDUCTIONS);
+			} else {
+				InBetweenUIAndBusinessLogic.getVariableFromMainActivity(0,
+						Text.DEDUCTIONS);
 			}
 		}
-		
+
 	}
 
 	private void addListenerOnRatingBar() {
@@ -150,8 +152,6 @@ public class MainActivity extends Activity {
 			}
 		});
 	}
-	
-
 
 	private void checkThatTextIsCorrect(Text text, EditText editText) {
 		switch (text) {
@@ -201,9 +201,11 @@ public class MainActivity extends Activity {
 		} else {
 			if (billTotal.getText().hashCode() == editText.getText().hashCode()) {
 				staticBillTotal = totalBill;
-			} else if (billDeductions.getText().hashCode() == editText.getText().hashCode()) {
+			} else if (billDeductions.getText().hashCode() == editText
+					.getText().hashCode()) {
 				staticDeductions = deductionsToBill;
-			} else if (tax.getText().hashCode() == editText.getText().hashCode()) {
+			} else if (tax.getText().hashCode() == editText.getText()
+					.hashCode()) {
 				staticTax = taxAmount;
 			}
 		}
@@ -226,11 +228,12 @@ public class MainActivity extends Activity {
 		entireBill = (TextView) findViewById(R.id.entireBill);
 		tipTailoring = (Button) findViewById(R.id.tipTailoring);
 		configTipItems = (Button) findViewById(R.id.configTipItems);
+		tipTailoring.setOnClickListener(tipListener);
+		configTipItems.setOnClickListener(configListener);
 		numGuests = 0;
 		totalBill = 0.00;
 		deductionsToBill = 0.00;
 	}
-
 
 	public static void setDataInTextBoxes(double dataInBox, Text text) {
 		dataInBox = (Math.round(dataInBox * 100.0) / 100.0);
@@ -249,8 +252,31 @@ public class MainActivity extends Activity {
 			entireBill.setText(putInTextBox);
 			break;
 		}
-		
+
 	}
+
+	private View.OnClickListener tipListener = new View.OnClickListener() {
+
+		@Override
+		public void onClick(View v) {
+			if (perPersonTip.getText().toString().matches("")) {
+				Toast.makeText(MainActivity.this, TOTALTIP, 5000).show();
+			} else {
+				Intent intent = new Intent(MainActivity.this,
+						TipSplittingScreen.class);
+				startActivity(intent);
+			}
+		}
+	};
+
+	private View.OnClickListener configListener = new View.OnClickListener() {
+
+		@Override
+		public void onClick(View v) {
+			Intent intent = new Intent(MainActivity.this, AddTaxToTip.class);
+			startActivity(intent);
+		}
+	};
 
 	/*
 	 * defaultTip = 20.00; String MaxTip = "20.00"; try { MaxTip =
@@ -349,145 +375,6 @@ public class MainActivity extends Activity {
 	 * }
 	 * 
 	 * }
-	 * 
-	 * private void tax() { Tax.addTextChangedListener(new TextWatcher() {
-	 * 
-	 * @Override public void afterTextChanged(Editable s) { // TODO
-	 * Auto-generated method stub
-	 * 
-	 * }
-	 * 
-	 * @Override public void beforeTextChanged(CharSequence s, int start, int
-	 * count, int after) { // TODO Auto-generated method stub
-	 * 
-	 * }
-	 * 
-	 * @Override public void onTextChanged(CharSequence s, int start, int
-	 * before, int count) { String number = Tax.getText().toString(); int size =
-	 * 0; int afterDecimal = number.length(); for (char ch :
-	 * number.toCharArray()) { if (ch == '.') { break;
-	 * 
-	 * } else { size++; } }
-	 * 
-	 * if ((afterDecimal - size) > 3) { Tax.setText("");
-	 * Toast.makeText(MainActivity.this,
-	 * "Only two numbers allowed after decimal", 5000) .show();
-	 * 
-	 * } calculation(); } });
-	 * 
-	 * }
-	 * 
-	 * private void billDeductions() { billDeductions.addTextChangedListener(new
-	 * TextWatcher() {
-	 * 
-	 * @Override public void afterTextChanged(Editable s) { // TODO
-	 * Auto-generated method stub
-	 * 
-	 * }
-	 * 
-	 * @Override public void beforeTextChanged(CharSequence s, int start, int
-	 * count, int after) { // TODO Auto-generated method stub
-	 * 
-	 * }
-	 * 
-	 * @Override public void onTextChanged(CharSequence s, int start, int
-	 * before, int count) { String number = billDeductions.getText().toString();
-	 * int size = 0; int afterDecimal = number.length(); for (char ch :
-	 * number.toCharArray()) { if (ch == '.') { break;
-	 * 
-	 * } else { size++; } }
-	 * 
-	 * if ((afterDecimal - size) > 3) { billDeductions.setText("");
-	 * Toast.makeText(MainActivity.this,
-	 * "Only two numbers allowed after decimal", 5000) .show();
-	 * 
-	 * } calculation();
-	 * 
-	 * } });
-	 * 
-	 * }
-	 * 
-	 * private void billTotal() { billTotal.addTextChangedListener(new
-	 * TextWatcher() {
-	 * 
-	 * @Override public void afterTextChanged(Editable s) { // TODO
-	 * Auto-generated method stub
-	 * 
-	 * }
-	 * 
-	 * @Override public void beforeTextChanged(CharSequence s, int start, int
-	 * count, int after) { // TODO Auto-generated method stub
-	 * 
-	 * }
-	 * 
-	 * @Override public void onTextChanged(CharSequence s, int start, int
-	 * before, int count) { String number = billTotal.getText().toString(); int
-	 * size = 0; int afterDecimal = number.length(); for (char ch :
-	 * number.toCharArray()) { if (ch == '.') { break;
-	 * 
-	 * } else { size++; } }
-	 * 
-	 * if ((afterDecimal - size) > 3) { billTotal.setText("");
-	 * Toast.makeText(MainActivity.this,
-	 * "Only two numbers allowed after decimal", 5000) .show();
-	 * 
-	 * } calculation(); } }); }
-	 * 
-	 * private void dataEnteredForGuests() {
-	 * numberOfGuests.addTextChangedListener(new TextWatcher() {
-	 * 
-	 * @Override public void afterTextChanged(Editable s) { // TODO
-	 * Auto-generated method stub
-	 * 
-	 * }
-	 * 
-	 * @Override public void beforeTextChanged(CharSequence s, int start, int
-	 * count, int after) { // TODO Auto-generated method stub
-	 * 
-	 * }
-	 * 
-	 * @Override public void onTextChanged(CharSequence s, int start, int
-	 * before, int count) { String number = numberOfGuests.getText().toString();
-	 * if (number.equals("0")) { numberOfGuests.setText("");
-	 * Toast.makeText(MainActivity.this, "You count as guest", 5000).show(); }
-	 * calculation(); } }); }
-	 * 
-	 * private float getTextFromEditTest(EditText editText) { String
-	 * sValueFromText = editText.getText().toString(); return
-	 * Float.parseFloat(sValueFromText); }
 	 */
 
 }
-
-/*
- * subDeductions = false; addTax = false; minTip = "0.00"; fminTip = (float)
- * 0.00; hasTipBeenPersonalized = false;
- */
-
-/*
- * dataEnteredForGuests(); billTotal(); billDeductions(); tax();
- * addListenerOnRatingBar(); calculation();
- */
-/*
- * howManyGuests(); tipTotalForBill();
- */
-// }
-
-/*
- * public final static String tipTotalForBill() { return
- * tip.getText().toString();
- * 
- * }
- */
-
-/*
- * public final static String howManyGuests() { return
- * numberOfGuests.getText().toString(); // TODO Auto-generated method stub
- * 
- * }
- */
-
-/*
- * @Override public boolean onCreateOptionsMenu(Menu menu) {
- * getMenuInflater().inflate(R.menu.activity_main, menu); return true; }
- */

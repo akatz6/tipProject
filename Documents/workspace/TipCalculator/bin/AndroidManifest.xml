@@ -21,7 +21,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".Tip_Splitting"
+            android:name=".AddTaxToTip"
             android:label="@string/title_activity_tip__splitting" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -30,16 +30,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".InBetweenUIAndBusinessLogic"
-            android:label="@string/title_activity_tip__splitting" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <activity
-            android:name=".BILL_ENTRY_SCREEN"
+            android:name=".TipSplittingScreen"
             android:label="@string/title_activity_bill__entry__screen" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
