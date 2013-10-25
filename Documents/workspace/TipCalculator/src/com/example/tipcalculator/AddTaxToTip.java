@@ -14,7 +14,7 @@ import android.widget.RatingBar;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
-public class Tip_Splitting extends Activity {
+public class AddTaxToTip extends Activity {
 
 	Button returnToMainActivity;
 	static CheckBox tax;
