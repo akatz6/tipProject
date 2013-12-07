@@ -57,18 +57,12 @@ public class MainActivity extends Activity {
 	
 	private Button configTipItems;
 
-	// Tip_Splitting configTip;
-	// boolean subDeductions;
-	/*
-	 * boolean addTax; String minTip; Float fminTip; Boolean
-	 * hasTipBeenPersonalized;
-	 */
-
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		initialize();
+		doesHaveInformationForBusinessLogic();
 		addListenerOnRatingBar();
 		TextWatcher watcher = new TextWatcher() {
 
@@ -119,22 +113,23 @@ public class MainActivity extends Activity {
 	}
 
 	private void doesHaveInformationForBusinessLogic() {
+		
 		if (!billTotal.getText().toString().matches("")
 				&& !tax.getText().toString().matches("")
 				&& !numberOfGuests.getText().toString().matches("")) {
-			InBetweenUIAndBusinessLogic.getVariableFromMainActivity(
+			BusinessDelegateMainActivity.getVariableFromMainActivity(
 					staticNumGuests, Text.NUMGUESTS);
-			InBetweenUIAndBusinessLogic.getVariableFromMainActivity(staticTax,
+			BusinessDelegateMainActivity.getVariableFromMainActivity(staticTax,
 					Text.TAX);
-			InBetweenUIAndBusinessLogic.getVariableFromMainActivity(
+			BusinessDelegateMainActivity.getVariableFromMainActivity(
 					staticBillTotal, Text.BILL);
-			InBetweenUIAndBusinessLogic.getVariableFromMainActivity(
+			BusinessDelegateMainActivity.getVariableFromMainActivity(
 					staticStars, Text.STARS);
 			if (!billDeductions.getText().toString().matches("")) {
-				InBetweenUIAndBusinessLogic.getVariableFromMainActivity(
+				BusinessDelegateMainActivity.getVariableFromMainActivity(
 						staticDeductions, Text.DEDUCTIONS);
 			} else {
-				InBetweenUIAndBusinessLogic.getVariableFromMainActivity(0,
+				BusinessDelegateMainActivity.getVariableFromMainActivity(0,
 						Text.DEDUCTIONS);
 			}
 		}
