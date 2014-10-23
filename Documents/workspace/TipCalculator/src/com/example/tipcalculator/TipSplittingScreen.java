@@ -59,7 +59,7 @@ public class TipSplittingScreen extends Activity {
 				double dNewTipPerPerson = Double.parseDouble(newTipPerPerson);
 				newTotalValueOfTips += dNewTipPerPerson;
 			} 
-			InBetweenUIAndBusinessLogic.sendNewTipAmount(newTotalValueOfTips);
+			BusineesDelegateTipSplitting.sendNewTipAmount(newTotalValueOfTips, numberOfGuests);
 			finish();
 		}
 	};
@@ -71,7 +71,7 @@ public class TipSplittingScreen extends Activity {
 	}
 
 	private void inflateTable() {
-		for (int i = 0; i < InBetweenUIAndBusinessLogic.getGuests(); i++) {
+		for (int i = 0; i < FacadeShareUI.getNumGuests(); i++) {
 			View v = in.inflate(R.layout.row_per_person, table, false);
 			double tipPerIndividual = (Math.round(InBetweenUIAndBusinessLogic
 					.getTipPerPerson() * 100.0) / 100.0);
@@ -82,7 +82,7 @@ public class TipSplittingScreen extends Activity {
 			rows.add(tipPerPerson);
 			percentageTip = (SeekBar) v.findViewById(R.id.seekBar1);
 			percentageTip.setOnSeekBarChangeListener(new myListener());
-			numberOfGuests = InBetweenUIAndBusinessLogic.getGuests();
+			numberOfGuests = FacadeShareUI.getNumGuests();
 			percentageTip.setProgress((int) (100 / numberOfGuests));
 			percentageTip.setId(i);
 			table.addView(v);
@@ -113,7 +113,7 @@ public class TipSplittingScreen extends Activity {
 		public void onProgressChanged(SeekBar num, int changeInValue,
 				boolean seekBarChanged) {
 			if (seekBarChanged) {
-				InBetweenUIAndBusinessLogic.sendSeekBarInfo(num, changeInValue);
+				BusineesDelegateTipSplitting.sendSeekBarInfo(num, changeInValue);
 			}
 		}
 
@@ -151,5 +151,3 @@ public class TipSplittingScreen extends Activity {
 	}
 }
 
-//TODO Create and add names to database.
-//TODO Save tip amounts for active session
